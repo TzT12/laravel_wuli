@@ -44,9 +44,7 @@ class Student extends  Authenticatable implements JWTSubject
         $teacher_name = $request['teacher_name'];
         $verify = $request['verify'];
         $verify_select = DB::table('verify')->where('teacher_name','=',$teacher_name)->select('verify')->value('verify');
-        $account_ver = preg_match("/^\d*$/",$account);
-        $password_ver = preg_match('/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,18}/', $password);
-        if($account_ver == 1 && $password_ver == 1 && $verify = $verify_select){
+        if($verify = $verify_select){
             try {
                 $student_id = self::create([
                     'account' => $account,
@@ -92,7 +90,8 @@ class Student extends  Authenticatable implements JWTSubject
      */
     public static function Zt_selectStudent($account){
         try {
-            $data = self::where('account','=', $account)->get();
+            $data = self::select('student_name','level','form','pre','class','account')
+                ->where('account','=', $account)->get();
             return $data ?
                 $data :
                 false;

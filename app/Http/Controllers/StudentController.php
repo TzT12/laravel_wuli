@@ -6,7 +6,7 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class StudentController extends Controller
+class  StudentController extends Controller
 {
     /**
      * 注册
